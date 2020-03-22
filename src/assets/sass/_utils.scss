@@ -1,0 +1,32 @@
+$borderDirections: top,
+right,
+bottom,
+left,
+all;
+$width: 1px;
+$style: solid;
+$border-color: #EBEBEB;
+
+@each $direction in $borderDirections {
+  .border-#{$direction} {
+    @if $direction==all {
+      border: $width $style $border-color !important;
+    }
+
+    @else {
+      border-#{$direction}: $width $style $border-color !important;
+    }
+
+    box-sizing: border-box !important;
+  }
+
+  .border-none-#{$direction} {
+    @if $direction==all {
+      border: none !important;
+    }
+
+    @else {
+      border-#{$direction}: none !important;
+    }
+  }
+}

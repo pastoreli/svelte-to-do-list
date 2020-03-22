@@ -3,6 +3,9 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import autoPreprocess from 'svelte-preprocess'
+import alias from '@rollup/plugin-alias';
+import path from 'path';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -15,6 +18,12 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		alias({
+      resolve: ['.jsx', '.js', '.svelte'], // optional, by default this will just look for .js files or folders
+      entries: [
+        { find: '@', replacement: path.resolve(__dirname, 'src') },
+      ]
+    }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -22,7 +31,8 @@ export default {
 			// a separate file - better for performance
 			css: css => {
 				css.write('public/build/bundle.css');
-			}
+			},
+			preprocess: autoPreprocess()
 		}),
 
 		// If you have external dependencies installed from

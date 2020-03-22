@@ -1,0 +1,8 @@
+<script>
+  export let item;
+</script>
+
+<div>
+  <h2>{item.title}</h2>
+  <p>{item.description}</p>
+</div>
